@@ -1,0 +1,80 @@
+digraph G {
+node [fontname = "helvetica"];
+  edge [fontname = "helvetica"];
+
+  fontsize="50"
+
+
+start [ 
+    label = "start"; 
+    shape = oval;
+];
+input [
+    label = "Open Web browser\n Enter URL"; 
+    shape = rectangle;
+];
+DNS [
+    label = "\n Go for IP resolution\n to DNS server";
+    shape = diamond;
+];
+Bcache [
+    label = "Browser Cache";
+    shape = diamond;
+];
+Dcache[
+    label = "DNS Cache";
+    shape = diamond;
+];
+
+Rcache[
+    label = "Router Cache";
+    shape = diamond;
+];
+Display[
+    label = "Display website image";
+    shape = oval;
+];
+
+R1[
+    label = "HTTP request message\n to the web server";
+    shape = rectangle;
+];
+R2[
+    label = "Web server is \nresponded to the\n http request";
+    shape = diamond;
+];
+R3[
+    label = "Error Code : 2XX/3XX\n '200 OK' message, \n Display website image ";
+    shape = oval;
+];
+R4[
+    label = "Error Code : 4XX\n Response and Page not found ";
+    shape = oval;
+];
+end[
+    label = "end1"; 
+    shape = oval;
+];
+end1[
+    label = "end2"; 
+    shape = oval;
+];
+end2[
+    label = "end3"; 
+    shape = oval;
+];
+start -> input;
+input -> DNS;
+DNS -> Bcache[ label = "False" ];
+ Bcache -> Dcache;
+Dcache -> Rcache;
+ Rcache -> Display;
+ Display -> end;
+ R3 -> end1;
+ R4 -> end2;
+DNS -> R1[ label = "True" ];
+R1 -> R2;
+R2 -> R3[ label = "True" ];
+R2 -> R4[ label = "False" ];
+}
+
